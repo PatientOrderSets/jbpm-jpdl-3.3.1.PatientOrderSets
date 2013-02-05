@@ -338,7 +338,7 @@ public class JbpmSchema implements Serializable
   public void execute(String[] sqls)
   {
     String sql = null;
-    boolean showSql = settings.isShowSqlEnabled();
+//    boolean showSql = settings.isShowSqlEnabled();
 
     try
     {
@@ -349,7 +349,7 @@ public class JbpmSchema implements Serializable
       {
         sql = sqls[i];
 
-        if (showSql)
+//        if (showSql)
           log.debug(sql);
         statement.executeUpdate(sql);
       }

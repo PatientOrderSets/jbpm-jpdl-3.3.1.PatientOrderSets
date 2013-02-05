@@ -13,7 +13,7 @@ public class StringMax extends StringType implements org.hibernate.usertype.Para
   
   int length = 4000;
 
-  public void set(PreparedStatement st, Object value, int index) throws SQLException {
+  public void set(PreparedStatement st, String value, int index) throws SQLException {
     String string = (String)value;
     if ( (value!=null)
          && (string.length()>length)
