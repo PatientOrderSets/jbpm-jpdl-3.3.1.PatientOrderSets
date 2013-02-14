@@ -10,7 +10,7 @@
 <!-- ====================================================================== -->
 
 <!-- $Id: pom.xml 3598 2009-01-07 19:21:40Z thomas.diesler@jboss.com $ -->
-  
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
@@ -24,7 +24,7 @@
     <groupId>org.jbpm.jbpm3</groupId>
     <artifactId>jbpm</artifactId>
     <version>3.3.1.PatientOrderSets</version>
-    <relativePath>../../pom.xml</relativePath>
+    <!-- <relativePath>../../pom.xml</relativePath> -->
   </parent>
 
   <!-- Properties -->
@@ -47,10 +47,10 @@
       <groupId>dom4j</groupId>
       <artifactId>dom4j</artifactId>
       <exclusions>
-      	<exclusion>
-      	  <artifactId>xml-apis</artifactId>
-      	  <groupId>xml-apis</groupId>
-      	</exclusion>
+        <exclusion>
+          <artifactId>xml-apis</artifactId>
+          <groupId>xml-apis</groupId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
@@ -112,7 +112,7 @@
       <artifactId>slf4j-log4j12</artifactId>
       <scope>test</scope>
     </dependency>
-    
+
     <!-- Remove this static dependency -->
     <dependency>
       <groupId>hsqldb</groupId>
@@ -131,8 +131,33 @@
     <resources>
       <resource>
         <directory>src/main/resources</directory>
-        <filtering>true</filtering>
+	<includes>
+	  <include>**/*</include>
+	</includes>
       </resource>
+      <!--
+      <resource>
+        <directory>src/main/java/org/jbpm</directory>
+        <includes>
+          <include>default.jbpm.cfg.xml</include>
+        </includes>
+        <targetPath>org/jbpm</targetPath>
+      </resource>
+      <resource>
+        <directory>src/main/java/org/jbpm/db</directory>
+        <includes>
+          <include>hibernate.queries.hbm.xml</include>
+        </includes>
+	<targetPath>org/jbpm/db</targetPath> 
+      </resource>
+      <resource>
+        <directory>src/main/java/org/jbpm/graph</directory>
+        <includes>
+          <include>MailAction.hbm.xml</include>
+        </includes>
+	<targetPath>org/jbpm/graph</targetPath> 
+      </resource>
+      -->
     </resources>
 
     <plugins>
@@ -165,7 +190,7 @@
         <configuration>
           <excludes>
             <exclude>hibernate.*</exclude>
-            <exclude>jbpm.cfg.xml</exclude>
+            <exclude>*jbpm.cfg.xml</exclude>
             <exclude>jbpm-*-ds.xml</exclude>
             <exclude>jbpm.mail.templates.xml</exclude>
           </excludes>
@@ -206,9 +231,9 @@
   <!-- Profiles -->
   <profiles>
 
-    <!-- 
+    <!--
     Name:  no-database
-    Descr: Setup the default database   
+    Descr: Setup the default database
     -->
     <profile>
       <id>no-database</id>
@@ -232,9 +257,9 @@
       </build>
     </profile>
 
-    <!-- 
+    <!--
     Name:  hsqldb
-    Descr: Hypersonic Database Setup   
+    Descr: Hypersonic Database Setup
     -->
     <profile>
       <id>hsqldb</id>
@@ -259,9 +284,9 @@
       </build>
     </profile>
 
-    <!-- 
+    <!--
     Name:  mysql
-    Descr: MySQL Database Setup   
+    Descr: MySQL Database Setup
     -->
     <profile>
       <id>mysql</id>
@@ -288,9 +313,9 @@
       </build>
     </profile>
 
-    <!-- 
+    <!--
     Name:  postgresql
-    Descr: PostgreSQL Database Setup   
+    Descr: PostgreSQL Database Setup
     -->
     <profile>
       <id>postgresql</id>
@@ -317,9 +342,9 @@
       </build>
     </profile>
 
-    <!-- 
+    <!--
     Name:  sybase
-    Descr: Sybase Database Setup   
+    Descr: Sybase Database Setup
     -->
     <profile>
       <id>sybase</id>
@@ -334,7 +359,7 @@
           <plugin>
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
-              <excludes>                
+              <excludes>
                 <!-- [JBPM-1810] Fix clean, drop, create schema with JbpmSchema  -->
                 <exclude>org/jbpm/db/JbpmSchemaDbTest.java</exclude>
               </excludes>
